@@ -73,18 +73,21 @@ nav a:hover {
 /* Timeline container styles */
 .timeline {
   display: flex; /* Use Flexbox for layout */
-  flex-direction: row; /* Arrange columns side by side */
-  flex-wrap: wrap;     /* Allow wrapping to form columns */
-  justify-content: center; /* Center columns horizontally */
+  flex-direction: row; /* Arrange cards side by side */
+  flex-wrap: nowrap;   /* Prevent wrapping so cards scroll horizontally */
+  justify-content: flex-start; /* Align cards to the left */
   gap: 24px; /* Space between cards */
   padding: 32px 16px;
-  scroll-behavior: smooth;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
   scroll-snap-type: x mandatory; /* Enable horizontal scroll snapping */
-  max-width: 700px; /* Limit width for two columns */
-  margin: 0 auto;   /* Center the timeline on the page */
+  width: 100vw; /* Make timeline fill the whole page horizontally */
+  max-width: none; /* Remove width limit so timeline fits page */
+  margin-left: 30px;  /* Add space to the left of the timeline */
+  margin-right: 30px; /* Add space to the right of the timeline */
 }
 
-/* Each timeline card */
+/* Each timeline card will snap to the start of the container when scrolling */
 .timeline-card {
   background: rgba(68, 82, 116, 0.952); /* Slightly transparent white */
   border-radius: 12px;
@@ -100,7 +103,7 @@ nav a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  scroll-snap-align: start; /* Snap each card to the start of the container */
+  scroll-snap-align: start; /* Snap each card to the start of the timeline */
 }
 
 .timeline-card:hover {
@@ -159,15 +162,18 @@ nav a:hover {
 }
 
 /* Responsive: stack cards vertically on small screens */
+/* On screens smaller than 600px, timeline cards are stacked vertically */
 @media (max-width: 600px) {
   .timeline {
-    flex-direction: column; /* Stack vertically */
+    flex-direction: column;
     gap: 20px;
     align-items: center;
     scroll-snap-type: none; /* Disable snapping on small screens */
     max-width: none;        /* Remove width limit */
   }
   .timeline-card {
+    /* Show card content stacked (vertical) on small screens */
+    flex-direction: column; /* vertical layout */
     width: 90vw;
     min-width: 0;
     max-width: 400px;
